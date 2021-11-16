@@ -10,7 +10,12 @@ dotenv.config();
 const app = express();
 
 
-// router
+// routers
+const authRouter = require("./routers/routes/auth");
+app.use("/auth", authRouter)
+const todoRouter = require("./routers/routes/todo");
+app.use("/todo", todoRouter)
+
 
 
 //built-in level middleware
