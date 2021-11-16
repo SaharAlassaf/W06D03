@@ -2,7 +2,6 @@ const express = require("express");
 
 //controllers destructuring
 const {
-  getAllTasks,
   addTask,
   updateIsCompleted,
   updateTaskName,
@@ -11,7 +10,6 @@ const {
 
 const todo = express.Router();
 
-todo.get("/", getAllTasks);
 todo.post("/", addTask);
 todo.put("/", updateIsCompleted);
 todo.put("/", updateTaskName);

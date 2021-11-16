@@ -9,20 +9,16 @@ dotenv.config();
 //instiate express
 const app = express();
 
-
 // routers
 const authRouter = require("./routers/routes/auth");
-app.use("/auth", authRouter)
+app.use("/auth", authRouter);
 const todoRouter = require("./routers/routes/todo");
-app.use("/todo", todoRouter)
-
-
+app.use("/todo", todoRouter);
 
 //built-in level middleware
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
-
 
 const PORT = process.env.PORT;
 
