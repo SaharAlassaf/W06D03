@@ -10,7 +10,7 @@ const {
 
 const todo = express.Router();
 
-todo.post("/", addTask);
+todo.post("/add", addTask);
 todo.put("/", updateIsCompleted);
 todo.put("/", updateTaskName);
 todo.delete("/", deleteTask);

@@ -37,6 +37,7 @@ const signup = (req, res) => {
         username: username,
         email: email,
         password: password,
+        tasks: []
       });
     }
   });

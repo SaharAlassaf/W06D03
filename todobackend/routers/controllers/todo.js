@@ -2,7 +2,7 @@ const fs = require("fs");
 
 let users = [];
 
-// read from user DB
+// read from users DB
 fs.readFile("./db/users.json", (err, data) => {
   if (err) {
     console.log(err);
@@ -12,7 +12,7 @@ fs.readFile("./db/users.json", (err, data) => {
   }
 });
 
-// write in user DB
+// write in users DB
 function createUser(users) {
   fs.writeFile("./db/users.json", JSON.stringify(users), (err) => {
     if (err) {
@@ -24,22 +24,30 @@ function createUser(users) {
   });
 }
 
-const addTask = () => {
-  const { taskName } = req.body;
+const addTask = (req, res) => {
+  const { id, taskName } = req.body;
 
-  users.tasks.push({
-    id: tasks.length + 1,
+  let user = users.filter((item) => item.id == id);
+
+  console.log(user);
+
+  user[0].tasks.push({
+    taskId: tasks.length + 1,
     taskName: taskName,
     isCompleted: false,
   });
+
   createUser(users);
   res.status(200).json("Added successfully ✅");
 };
 
-const updateIsCompleted = () => {
+const updateIsCompleted = (req, res) => {
   const { id, isCompleted } = req.body;
 
-  users = users.tasks.map((item, i) => {
+  let user = users.filter((item) => item.id == id);
+
+
+  users = user[0].tasks.map((item, i) => {
     if (id === i) {
       return { ...item, isCompleted: !isCompleted }; //!item.isCompleted
     } else return item;
@@ -48,10 +56,12 @@ const updateIsCompleted = () => {
   res.status(200).json("Updated successfully ✅");
 };
 
-const updateTaskName = () => {
+const updateTaskName = (req, res) => {
   const { id, taskName } = req.body;
 
-  users = users.tasks.map((item, i) => {
+  let user = users.filter((item) => item.id == id);
+
+  users = user[0].tasks.map((item, i) => {
     if (id === i) {
       return { ...item, taskName: taskName }; //!item.isCompleted
     } else return item;
@@ -60,9 +70,12 @@ const updateTaskName = () => {
   res.status(200).json("Updated successfully ✅");
 };
 
-const deleteTask = () => {
+const deleteTask = (req, res) => {
   const { id } = req.body;
-  users.tasks.forEach((item, i) => {
+
+  let user = users.filter((item) => item.id == id);
+
+  user[0].tasks.forEach((item, i) => {
     if (item.id == id) {
       tasks.splice(i, 1);
     }
